@@ -5,18 +5,20 @@ function AdminRoute({ children }) {
 
   const token = localStorage.getItem("token")
 
+  let redirectTo = null
   if (!token) {
-    return <Navigate to="/" />
+    redirectTo = "/"
+  } else {
+    try {
+      const decoded = jwtDecode(token)
+      if (decoded.role !== "admin") redirectTo = "/tournaments"
+    } catch {
+      redirectTo = "/"
+    }
   }
 
-  let decoded
-  try {
-    decoded = jwtDecode(token)
-  } catch {
-    return <Navigate to="/" />
-  }
-  if (decoded.role !== "admin") {
-    return <Navigate to="/tournaments" />
+  if (redirectTo) {
+    return <Navigate to={redirectTo} />
   }
 
   return children

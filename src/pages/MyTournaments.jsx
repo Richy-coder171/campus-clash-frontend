@@ -2,7 +2,9 @@ import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { FiFlag, FiCheckCircle, FiClock, FiTarget, FiUsers, FiMonitor, FiAward, FiHeart, FiSend, FiMessageSquare, FiStar, FiX, FiZap, FiCalendar } from "react-icons/fi"
 import Navbar from "../components/Navbar"
+import PlayerProfileCard from "../components/PlayerProfileCard"
 import API from "../api/axios"
+import FeedbackLauncher from "../components/FeedbackLauncher"
 import { SkeletonCard, SkeletonText } from "../components/Skeleton"
 import "./MyTournament.css"
 
@@ -20,6 +22,7 @@ function MyTournaments() {
   const [feedbackError, setFeedbackError] = useState("")
   const [myFeedbacks, setMyFeedbacks] = useState([])
   const [now, setNow] = useState(Date.now())
+  const [selectedPlayer, setSelectedPlayer] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -114,6 +117,7 @@ function MyTournaments() {
   return (
     <>
       <Navbar />
+      <FeedbackLauncher />
       <div className="mytournaments-page">
         <div className="mytournaments-inner">
           <span className="uppercase-label">Elite Match History</span>
@@ -220,7 +224,20 @@ function MyTournaments() {
                       ) : (
                         <>
                           <p style={{color:'var(--yellow)'}}><FiHeart /> Better luck next time</p>
-                          <div className="winner-name">Winner: {t.winner}</div>
+                          <div className="winner-name">
+                            Winner:{" "}
+                            {t.winner_id ? (
+                              <span
+                                className="stat-player-clickable"
+                                title={`View ${t.winner}'s profile`}
+                                onClick={(e) => setSelectedPlayer({ userId: t.winner_id, rect: e.currentTarget.getBoundingClientRect() })}
+                              >
+                                {t.winner}
+                              </span>
+                            ) : (
+                              t.winner
+                            )}
+                          </div>
                         </>
                       )}
                     </div>
@@ -341,6 +358,14 @@ function MyTournaments() {
             )}
           </div>
         </div>
+      )}
+
+      {selectedPlayer && (
+        <PlayerProfileCard
+          userId={selectedPlayer.userId}
+          anchorRect={selectedPlayer.rect}
+          onClose={() => setSelectedPlayer(null)}
+        />
       )}
     </>
   )
