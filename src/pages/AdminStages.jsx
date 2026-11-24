@@ -32,8 +32,8 @@ function PodCard({ pod, isSquad, stageId, onChanged }) {
       setAddSelection("")
       load()
       onChanged()
-    } catch (err) {
-      alert(err.response?.data?.error || "Failed to add team")
+    } catch {
+        alert("Failed to add team")
     } finally {
       setBusy(false)
     }
@@ -394,7 +394,7 @@ function FinalParticipantsPanel({ tournamentId, tournament, onGrouped }) {
       a.click()
       a.remove()
       window.URL.revokeObjectURL(url)
-    } catch (err) {
+    } catch {
       alert("Failed to download final list")
     }
   }
@@ -642,7 +642,7 @@ function AdminStages() {
   const [podCount, setPodCount] = useState("1")
   const [advanceCount, setAdvanceCount] = useState("")
   const [isFinal, setIsFinal] = useState(false)
-  const [seedStrategy, setSeedStrategy] = useState("random")
+  const [seedStrategy] = useState("random")
   const [busy, setBusy] = useState(false)
   const [initialLoading, setInitialLoading] = useState(true)
 

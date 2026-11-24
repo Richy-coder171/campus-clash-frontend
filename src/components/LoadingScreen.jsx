@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import { Swords } from "lucide-react"
 import "./LoadingScreen.css"
 
@@ -32,3 +31,4 @@ function LoadingScreen({ message = "Loading..." }) {
 }
 
 export default LoadingScreen
+import { motion } from "framer-motion"

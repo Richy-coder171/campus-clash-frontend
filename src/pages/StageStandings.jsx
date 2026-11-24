@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
+import { useParams, useNavigate } from "react-router-dom"
 import { FiCheckCircle, FiCircle, FiStar, FiKey, FiAward, FiTarget, FiMonitor, FiArrowLeft, FiLock, FiZap, FiChevronDown, FiChevronUp, FiArrowRight, FiGrid, FiCalendar, FiClock, FiUsers, FiUser, FiMap } from "react-icons/fi"
 import Navbar from "../components/Navbar"
 import API from "../api/axios"

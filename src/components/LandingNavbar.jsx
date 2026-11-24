@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { FiArrowRight } from "react-icons/fi"
 import { motion } from "framer-motion"
+import { FiArrowRight } from "react-icons/fi"
 import logo from "../assets/logo.png"
 import "./LandingNavbar.css"
 

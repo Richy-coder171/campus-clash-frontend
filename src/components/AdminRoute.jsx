@@ -9,13 +9,14 @@ function AdminRoute({ children }) {
     return <Navigate to="/" />
   }
 
+  let decoded
   try {
-    const decoded = jwtDecode(token)
-    if (decoded.role !== "admin") {
-      return <Navigate to="/tournaments" />
-    }
+    decoded = jwtDecode(token)
   } catch {
     return <Navigate to="/" />
+  }
+  if (decoded.role !== "admin") {
+    return <Navigate to="/tournaments" />
   }
 
   return children
